@@ -1,0 +1,5 @@
+.vagrant
+id_rsa
+id_rsa.pub
+k3s
+*.log
