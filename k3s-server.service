@@ -1,0 +1,16 @@
+[Unit]
+Description=k3s Server
+Documentation=https://k3s.io/
+
+[Service]
+EnvironmentFile=/etc/k3s/server.conf
+ExecStart=/usr/local/bin/k3s \
+  server \
+  --node-ip ${NODE_IP} \
+  --node-external-ip ${NODE_EXTERNAL_IP} \
+  --node-name ${NODE_NAME}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

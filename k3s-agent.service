@@ -1,0 +1,18 @@
+[Unit]
+Description=k3s Node Agent
+Documentation=https://k3s.io/
+
+[Service]
+EnvironmentFile=/etc/k3s/agent.conf
+ExecStart=/usr/local/bin/k3s \
+  agent \
+  --server https://${SERVER_IP}:6443 \
+  --node-ip ${NODE_IP} \
+  --node-external-ip ${NODE_EXTERNAL_IP} \
+  --node-name ${NODE_NAME} \
+  --token ${TOKEN}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
