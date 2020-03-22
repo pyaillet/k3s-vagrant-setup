@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-curl -LO https://github.com/rancher/k3s/releases/latest/download/k3s
-chmod +x k3s
+if [ ! -f ./k3s ]; then
+  curl -LO https://github.com/rancher/k3s/releases/latest/download/k3s
+  chmod +x k3s
+fi
 
-ssh-keygen -t rsa -f ./id_rsa -q -N ""
+if [ ! -f ./id_rsa ]; then
+  ssh-keygen -t rsa -f ./id_rsa -q -N ""
+fi
 
 vagrant up
 

@@ -6,6 +6,7 @@ Documentation=https://k3s.io/
 EnvironmentFile=/etc/k3s/server.conf
 ExecStart=/usr/local/bin/k3s \
   server \
+  --flannel-iface=enp0s8 \
   --node-ip ${NODE_IP} \
   --node-external-ip ${NODE_EXTERNAL_IP} \
   --node-name ${NODE_NAME}

@@ -7,6 +7,7 @@ EnvironmentFile=/etc/k3s/agent.conf
 ExecStart=/usr/local/bin/k3s \
   agent \
   --server https://${SERVER_IP}:6443 \
+  --flannel-iface=enp0s8 \
   --node-ip ${NODE_IP} \
   --node-external-ip ${NODE_EXTERNAL_IP} \
   --node-name ${NODE_NAME} \
