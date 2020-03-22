@@ -10,8 +10,7 @@ Vagrant.configure("2") do |config|
     vb.memory = "2048"
   end
   config.vm.provision "file", source: "./k3s", destination: "~/k3s"
-  config.vm.provision "file", source: "./id_rsa", destination: "~/.ssh/id_rsa"
-  config.vm.provision "file", source: "./id_rsa.pub", destination: "~/.ssh/id_rsa.pub"
+  config.vm.provision "file", source: "./token", destination: "~/token"
   config.vm.define "server" do |node|
     node.vm.hostname = "server"
     node.vm.network "private_network", ip: IP_SERVER, virtualbox__hostnet: VM_NETWORK, adapter: 2

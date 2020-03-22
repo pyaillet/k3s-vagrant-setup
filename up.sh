@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ ! -f ./token ]; then
+  head -c 64 </dev/urandom | xxd -o off -ps -c 64 > token
+fi
+
 if [ ! -f ./k3s ]; then
   curl -LO https://github.com/rancher/k3s/releases/latest/download/k3s
   chmod +x k3s

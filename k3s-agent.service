@@ -11,7 +11,7 @@ ExecStart=/usr/local/bin/k3s \
   --node-ip ${NODE_IP} \
   --node-external-ip ${NODE_EXTERNAL_IP} \
   --node-name ${NODE_NAME} \
-  --token ${TOKEN}
+  --token-file /etc/k3s/token
 Restart=on-failure
 RestartSec=5
 
