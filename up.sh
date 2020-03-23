@@ -15,8 +15,12 @@ fi
 
 vagrant up
 
-vagrant ssh server -c "sudo cp /var/lib/rancher/k3s/server/tls/server-ca.crt /vagrant"
-vagrant ssh server -c "sudo cp /var/lib/rancher/k3s/server/tls/client-admin.crt /vagrant"
-vagrant ssh server -c "sudo cp /var/lib/rancher/k3s/server/tls/client-admin.key /vagrant"
+IP_SERVER=192.168.99.20
+KUBECONFIG=k3s.yaml
 
-kubectl --kubeconfig=k3s.kubeconfig get nodes
+rm -f "${KUBECONFIG}"
+
+vagrant ssh server -c "sudo cat /etc/rancher/k3s/${KUBECONFIG}" \
+  | sed -e "s/127.0.0.1/${IP_SERVER}/" > "${KUBECONFIG}"
+
+kubectl --kube-config="${KUBECONFIG}" get nodes
