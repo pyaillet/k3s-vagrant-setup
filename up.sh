@@ -16,9 +16,11 @@ fi
 vagrant up
 
 IP_SERVER=192.168.99.20
-rm -f k3s.yaml
-vagrant ssh server -c "sudo cat /etc/rancher/k3s/k3s.yaml" \
-  | sed -e "s/127.0.0.1/${IP_SERVER}/" > k3s.yaml
+KUBECONFIG=k3s.yaml
 
-export KUBECONFIG=./k3s.yaml
-kubectl get nodes
+rm -f "${KUBECONFIG}"
+
+vagrant ssh server -c "sudo cat /etc/rancher/k3s/${KUBECONFIG}" \
+  | sed -e "s/127.0.0.1/${IP_SERVER}/" > "${KUBECONFIG}"
+
+kubectl --kube-config="${KUBECONFIG}" get nodes
