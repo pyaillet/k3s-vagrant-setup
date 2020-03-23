@@ -15,7 +15,7 @@ fi
 
 vagrant up
 
-IP_SERVER=192.168.99.20
+IP_SERVER=$(vagrant ssh server -c "ip address show enp0s8 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//'" | tr -d "\n\r")
 KUBECONFIG=k3s.yaml
 
 rm -f "${KUBECONFIG}"
@@ -23,4 +23,4 @@ rm -f "${KUBECONFIG}"
 vagrant ssh server -c "sudo cat /etc/rancher/k3s/${KUBECONFIG}" \
   | sed -e "s/127.0.0.1/${IP_SERVER}/" > "${KUBECONFIG}"
 
-kubectl --kube-config="${KUBECONFIG}" get nodes
+kubectl --kubeconfig="${KUBECONFIG}" get nodes
